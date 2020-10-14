@@ -9,7 +9,7 @@ import { removeBookId } from '../utils/localStorage';
 
 const SavedBooks = () => {
 
-  const [removeBook] = useMutation(REMOVE_BOOK);
+  const [removeBook, { error }] = useMutation(REMOVE_BOOK);
   const { loading, data } = useQuery(QUERY_ME);
 
   const userData = data?.me || {};
@@ -32,6 +32,7 @@ const SavedBooks = () => {
 
 
       // upon success, remove book's id from localStorage
+    
       removeBookId(bookId);
     } catch (err) {
       console.error(err);
@@ -42,7 +43,7 @@ const SavedBooks = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
-
+  
   return (
     <>
       <Jumbotron fluid className='text-light bg-dark'>
